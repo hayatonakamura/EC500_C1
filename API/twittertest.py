@@ -11,10 +11,10 @@ import os
 
  
  #My Twitter Information
-consumer_key = 'HXsLvWs59wM1d1XGE7LJQOigJ'
-consumer_secret = 'qBeTcrfx4pzUC0EhNdYco0tQkYKVkhIIebdNr4FB6t7pOYMMoT'
-access_token = '255953036-hY9jLN886BikD0qOBODFgaJ54xwTuAKFBgwXknLB'
-access_secret = 'nXtasuKhZnAcA3djmj5JOrjACa7JsJthuu4amegKn4Eqt'
+consumer_key = ''
+consumer_secret = ''
+access_token = '-'
+access_secret = ''
 
 
 #using the tweety library
