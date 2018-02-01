@@ -28,13 +28,13 @@ api = tweepy.API(auth)
 #api search
 
 #getting the tweet from the user, number of tweets are 200
-tweets = api.user_timeline(screen_name='Hayatopia',
-                           count=2, include_rts=False,
+tweets = api.user_timeline(screen_name='rice',
+                           count=200, include_rts=False,
                            exclude_replies=True)
 
 last_id = tweets[-1].id
 
-username = "Hayatopia"
+username = 'rice'
 
 
 while (True):
@@ -62,15 +62,18 @@ for status in tweets:
 
 
 #Downloading the images
+counter = 0
 for media_file in media_files:
-	wget.download(media_file)
+	if (counter < 2):
+		counter = counter + 1
+		wget.download(media_file)
 
 
 
 #---------------------Converting the pictures to Video--------------------------
 #     Using ffmpeg
 
-os.system("ffmpeg -framerate 10 -pattern_type glob -i '*.jpg' out.mp4")
+os.system("ffmpeg -framerate .5 -pattern_type glob -i '*.jpg' out.mp4")
 
 #-------------------------------------------------------------------------------
 
