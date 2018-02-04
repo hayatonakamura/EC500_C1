@@ -15,12 +15,21 @@ from os.path import join, basename
 from sys import argv
 import requests
 
+import io
+
+import PIL
+from PIL import Image, ImageDraw, ImageFont
+
+# Imports the Google Cloud client library
+from google.cloud import vision
+from google.cloud.vision import types
+
  
  #My Twitter Information
-consumer_key = ''
-consumer_secret = ''
-access_token = '-'
-access_secret = ''
+consumer_key = 'HXsLvWs59wM1d1XGE7LJQOigJ'
+consumer_secret = 'qBeTcrfx4pzUC0EhNdYco0tQkYKVkhIIebdNr4FB6t7pOYMMoT'
+access_token = '255953036-hY9jLN886BikD0qOBODFgaJ54xwTuAKFBgwXknLB'
+access_secret = 'nXtasuKhZnAcA3djmj5JOrjACa7JsJthuu4amegKn4Eqt'
 
 
 #using the tweety library
@@ -70,9 +79,61 @@ for status in tweets:
 #Downloading the images
 counter = 0
 for media_file in media_files:
-	if (counter < 5):
+	if (counter < 10):
 		counter = counter + 1
-		wget.download(media_file)
+		address = '/Users/Hayato/Desktop/Media/' + str(counter) + '.jpg'
+		wget.download(media_file, address)
+
+
+
+
+
+#---------------------------------------------------------------------------------------------------
+
+newcounter = 0
+# Instantiates a client
+client = vision.ImageAnnotatorClient()
+
+
+
+for x in range(1, 11):
+    newcounter = newcounter + 1
+    name = str(newcounter) + '.jpg'
+
+    # The name of the image file to annotate
+    file_name = os.path.join(
+        os.path.dirname(__file__),
+        name)
+
+    # Loads the image into memory
+    with io.open(file_name, 'rb') as image_file:
+        content = image_file.read()
+
+    image = types.Image(content=content)
+
+    # Performs label detection on the image file
+    response = client.label_detection(image=image)
+    labels = response.label_annotations
+
+    x = 0
+
+    for label in labels:
+        if (x == 0):
+            x = x + 1
+            y = label.description
+            # print(y)
+    new = 'new' + str(newcounter) + '.jpg'
+    image = Image.open(name)
+    # font_type = ImageFont.truetype('Arial.tff', 20)                     // if you want to change the font
+    draw = ImageDraw.Draw(image)
+    draw.text(xy=(100, 50), text = y, fill=(255, 69, 0))
+    image.save(new) # save it
+    newcommand = "rm " + name;
+    os.system(newcommand)
+    #image.show()
+
+
+
 
 
 
@@ -85,70 +146,12 @@ os.system("ffmpeg -framerate .5 -pattern_type glob -i '*.jpg' out.mp4")
 
 
 
-# ENDPOINT_URL = 'https://vision.googleapis.com/v1/images:annotate'
-# RESULTS_DIR = 'jsons'
-# makedirs(RESULTS_DIR, exist_ok=True)
-
-# def make_image_data_list(image_filenames):
-#     """
-#     image_filenames is a list of filename strings
-#     Returns a list of dicts formatted as the Vision API
-#         needs them to be
-#     """
-#     img_requests = []
-#     for imgname in image_filenames:
-#         with open(imgname, 'rb') as f:
-#             ctxt = b64encode(f.read()).decode()
-#             img_requests.append({
-#                     'image': {'content': ctxt},
-#                     'features': [{
-#                         'type': 'TEXT_DETECTION',
-#                         'maxResults': 1
-#                     }]
-#             })
-#     return img_requests
-
-# def make_image_data(image_filenames):
-#     """Returns the image data lists as bytes"""
-#     imgdict = make_image_data_list(image_filenames)
-#     return json.dumps({"requests": imgdict }).encode()
 
 
-# def request_ocr(api_key, image_filenames):
-#     response = requests.post(ENDPOINT_URL,
-#                              data=make_image_data(image_filenames),
-#                              params={'key': api_key},
-#                              headers={'Content-Type': 'application/json'})
-#     return response
 
 
-# if __name__ == '__main__':
-#     api_key, *image_filenames = argv[1:]
-#     if not api_key or not image_filenames:
-#         print("""
-#             Please supply an api key, then one or more image filenames
-#             $ python cloudvisreq.py api_key image1.jpg image2.png""")
-#     else:
-#         response = request_ocr(api_key, image_filenames)
-#         if response.status_code != 200 or response.json().get('error'):
-#             print(response.text)
-#         else:
-#             for idx, resp in enumerate(response.json()['responses']):
-#                 # save to JSON file
-#                 imgname = image_filenames[idx]
-#                 jpath = join(RESULTS_DIR, basename(imgname) + '.json')
-#                 with open(jpath, 'w') as f:
-#                     datatxt = json.dumps(resp, indent=2)
-#                     print("Wrote", len(datatxt), "bytes to", jpath)
-#                     f.write(datatxt)
 
-#                 # print the plaintext to screen for convenience
-#                 print("---------------------------------------------")
-#                 t = resp['textAnnotations'][0]
-#                 print("    Bounding Polygon:")
-#                 print(t['boundingPoly'])
-#                 print("    Text:")
-#                 print(t['description'])
+
 
 
 
