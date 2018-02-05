@@ -2,7 +2,6 @@
 #Hayato Nakamura 
 
 
-
 import tweepy
 from tweepy import OAuthHandler
 import json
@@ -42,14 +41,16 @@ api = tweepy.API(auth)
 
 #api search
 
+#Change the username here :
+username = 'Hayatopia'
+
 #getting the tweet from the user, number of tweets are 200
-tweets = api.user_timeline(screen_name='Hayatopia',
+tweets = api.user_timeline(screen_name=username,
                            count=200, include_rts=False,
                            exclude_replies=True)
 
 last_id = tweets[-1].id
 
-username = 'Hayatopia'
 
 
 while (True):
@@ -88,17 +89,19 @@ for media_file in media_files:
 
 
 
-#---------------------------------------------------------------------------------------------------
+#--------------------------------------------Google Cloud Vision API-------------------------------------------
 
-newcounter = 0
+
+
 # Instantiates a client
 client = vision.ImageAnnotatorClient()
-
-
+ 
+#This counter is to name the 10 images 1.jpg, 2.jpg, ... , 10.jpg
+newcounter = 0
 
 for x in range(1, 11):
-    newcounter = newcounter + 1
-    name = str(newcounter) + '.jpg'
+    newcounter = newcounter + 1                    
+    name = str(newcounter) + '.jpg'                    #names the image names differently
 
     # The name of the image file to annotate
     file_name = os.path.join(
@@ -115,19 +118,20 @@ for x in range(1, 11):
     response = client.label_detection(image=image)
     labels = response.label_annotations
 
-    x = 0
+    x = 0            #This is a counter to ONLY download the first description label
 
     for label in labels:
         if (x == 0):
             x = x + 1
-            y = label.description
+            y = label.description           #This is the output text when run though google cloud vision
             # print(y)
-    new = 'new' + str(newcounter) + '.jpg'
+    new = 'new' + str(newcounter) + '.jpg'     #The new file is called new1.jpg, new2.jpg, ... , new10.jpg
     image = Image.open(name)
-    # font_type = ImageFont.truetype('Arial.tff', 20)                     // if you want to change the font
+    #font_type = ImageFont.truetype('Arial.tff', 20)                     # if you want to change the font
     draw = ImageDraw.Draw(image)
     draw.text(xy=(100, 50), text = y, fill=(255, 69, 0))
-    image.save(new) # save it
+    #Saves the new image, then deletes the old one
+    image.save(new)
     newcommand = "rm " + name;
     os.system(newcommand)
     #image.show()
