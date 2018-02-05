@@ -15,4 +15,16 @@ Some things to set up before you can have this running:
      
       *Make sure that you change filename.json depending on what you actually name it*
 
+
+
+The following shows the basic flow of the code:
+
+ 1. Checks your twitter credentials
+ 2. Checks if it is a valid twitter handle
+ 3. Downloads the pictures (.jpg)
+ 4. Runs the pictures through the google vision API
+ 5. Creates new pictures with the label written over it, while deleting the original photos
+ 6. Runs the new photos through FFMPEG and deletes the old pictures
+
+
 Enjoy!
