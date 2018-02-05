@@ -9,8 +9,8 @@ Some things to set up before you can have this running:
   2. Set up the API page for google cloud vision, and rename the JSON file (ex: filename.json)
   3. type the following on the terminal command
   
-      export GOOGLE_APPLICATION_CREDENTIALS=filename.json
-      
+      export GOOGLE_APPLICATION_CREDENTIALS=filename.json
+      
       *Make sure that you change filename.json depending on what you actually name it*
 
 Enjoy!
