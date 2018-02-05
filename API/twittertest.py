@@ -127,12 +127,12 @@ for x in range(1, 11):
             # print(y)
     new = 'new' + str(newcounter) + '.jpg'     #The new file is called new1.jpg, new2.jpg, ... , new10.jpg
     image = Image.open(name)
-    #font_type = ImageFont.truetype('Arial.tff', 20)                     # if you want to change the font
+    #font_type = ImageFont.truetype('FreeMono.tff', 20, index = 0, encoding = "unic")                     # if you want to change the font
     draw = ImageDraw.Draw(image)
     draw.text(xy=(100, 50), text = y, fill=(255, 69, 0))
     #Saves the new image, then deletes the old one
     image.save(new)
-    newcommand = "rm " + name;
+    newcommand = "rm " + name
     os.system(newcommand)
     #image.show()
 
@@ -150,8 +150,15 @@ os.system("ffmpeg -framerate .5 -pattern_type glob -i '*.jpg' out.mp4")
 
 
 
+#Aditionally, if you would like to delete the new pictures as well, include the following
 
+# count = 0
 
+# for z in range(1, 11):
+# 	count = count + 1 
+# 	file = 'new' + str(count) + '.jpg'
+# 	deletepic = "rm " + file
+# 	os.system(deletepic)
 
 
 
