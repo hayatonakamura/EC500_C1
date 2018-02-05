@@ -1,4 +1,7 @@
-#New -- it works
+"""
+This document is purely for testing if the GOOGLE CLOUD VISION and PIL works. 
+It's a good idea to run this to check that both PIL, and google cloud works, after authenticating it. 
+"""
 
 
 import io
