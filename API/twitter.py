@@ -1,7 +1,7 @@
-#Python Twitter Test
+#Python Twitter API
 #Hayato Nakamura 
 
-
+#Libraries    :    note -- Some libraries may not be necessary
 import tweepy
 from tweepy import OAuthHandler
 import json
@@ -24,11 +24,11 @@ from google.cloud import vision
 from google.cloud.vision import types
 
  
- #My Twitter Information
-consumer_key = 'your info'
-consumer_secret = 'your info'
-access_token = 'your info'
-access_secret = 'your info'
+ #My Twitter Information (enter your credentials here)
+consumer_key = ''
+consumer_secret = ''
+access_token = '-'
+access_secret = ''
 
 
 #Authorizing using your information
@@ -37,8 +37,8 @@ auth.set_access_token(access_token, access_secret)
 api = tweepy.API(auth)
 
 
-#Change the username here :
-username = 'Hayatopia'
+#Keyboard input for the twitter username
+username=input('Twitter Username:')
 
 
 #getting the tweet from the user, number of tweets are 200
@@ -75,15 +75,22 @@ if (invalid == 0):
 		if(len(media) > 0):
 			media_files.add(media[0]['media_url'])
 
-
+	directory = input('Enter the directory for the saved photos (eg: /Users/Hayato/Desktop/Media/): ')
 
 	#Downloading the images
 	counter = 0
 	for media_file in media_files:
 		if (counter < 10):
 			counter = counter + 1
-			address = '/Users/Hayato/Desktop/Media/' + str(counter) + '.jpg'
+			#change your directory here
+			address = directory + str(counter) + '.jpg'
 			wget.download(media_file, address)
+			filename = str(counter) + '.jpg'
+			# image = Image.open(filename)
+			# new_image = image.resize((500, 500))						#for resizing the image (optional)
+			# hello = counter * 10
+			# newname = str(counter) + '.jpg'
+			# new_image.save(newname)
 
 
 
@@ -100,7 +107,7 @@ if (invalid == 0):
 	newcounter = 0
 
 	for x in range(1, 11):
-	    newcounter = newcounter + 1                    
+	    newcounter = newcounter + 1                  
 	    name = str(newcounter) + '.jpg'                    #names the image names differently
 
 	    # The name of the image file to annotate
@@ -133,7 +140,7 @@ if (invalid == 0):
 	    image = Image.open(name)
 	    font_type = ImageFont.truetype('arial.ttf', 35)                     # if you want to change the font
 	    draw = ImageDraw.Draw(image)
-	    draw.text(xy=(400, 1000), text = y, font = font_type, fill=(255, 69, 0))
+	    draw.text(xy=(0, 0), text = y, font = font_type, fill=(255, 69, 0))
 	    #Saves the new image, then deletes the old one
 	    image.save(new)
 	    newcommand = "rm " + name
@@ -166,7 +173,8 @@ if (invalid == 0):
 
 
 	#automatically open the video:
-	os.system('open /Users/Hayato/Desktop/Media/out.mp4')
+	video_out = 'open ' + directory + 'out.mp4'
+	os.system(directory)
 
 
 
