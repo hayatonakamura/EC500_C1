@@ -1,6 +1,6 @@
 # EC500 Twitter API & Google Cloud Vision API 
 
-### Objective: 
+## Objective: 
 twittertest.py will download 10 pictures from your selected twitter handl. Then it will run those 10 photos through google cloud vision, override the picture with a word that describes each photo, and outputs a video in a mp4 format for the audience.
 
 The Twitter API credentials are left for the user to input.
@@ -16,7 +16,7 @@ Some things to set up before you can have this running:
 **Make sure that you change filename.json depending on what you actually name it**
 
 
-### Code Flow:
+## Code Flow:
 The following shows the basic flow of the code:
 
  1. Checks your twitter credentials
