@@ -29,8 +29,10 @@ def hello():
         <img src="http://make.bu.edu/img/makebu-head.png" width="20%" height="20%">
 
 		<p> To execute the code and see the runtime : add <b>/output</b> to the url </p>
+		<p> To check the label output of the script, add this: <b> /labels </p>
 		<p> To test error cases: </p>
 		<p> Invalid Username: <b>/test1</b> <p>
+
 
 <br>
 <br>
