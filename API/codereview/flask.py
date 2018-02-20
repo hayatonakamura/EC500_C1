@@ -53,14 +53,6 @@ def test1():
     ret = t1.test1()
     return str(ret)
 
-@app.route("/test2")
-def test2():
-    ret = tester2.test2()
-    return str(ret)
-
-@app.route("/test3")
-def test3():
-    return str(ret)
 
 
 
