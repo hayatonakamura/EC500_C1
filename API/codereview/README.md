@@ -14,3 +14,14 @@ Finally, I have suggested improvements, on my partner's github, labeled as issue
    ### Part 2:
     
 In order to create a local website, I used the library *flask*, and displayed the necessary information on http://localhost:5000/ .
+
+The following cases were tested:
+1. Time it takes to execute the file
+2. The google cloud vision labels
+3. Invalid Username Case
+
+
+
+   ### Aside:
+
+The file **flasktest.py** is simply to test if the flask library works. Refer to **flask.py** for the actual main code. 
