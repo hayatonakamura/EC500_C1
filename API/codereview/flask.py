@@ -1,14 +1,12 @@
 from flask import Flask
+#from testtwitter2 import get_all_tweets
+from twittertest import apicall
+
+import t1
+import output
 
 app = Flask(__name__)
 
-first = '<!DOCTYPE html> <html lang="en"> <head> <meta charset = "UTF-8"> <title>Title</title> </head> <body> <h1> EC500 LOCAL WEBSITE: HAYATO NAKAMURA </h1> <p>'
-second = "</p> </body> </html>"
-
-imageurl = "https://pbs.twimg.com/media/DVJ7JaAVMAAESdw.jpg"
-complete1 = '<img src="' + imageurl + '" width="20%" height="20%">'
-
-run = first + complete1 + second
 
 
 @app.route("/")
@@ -25,13 +23,19 @@ def hello():
 	<body>
 	<h1> EC500 LOCAL WEBSITE: HAYATO NAKAMURA </h1>
 
-		<p>
-        <img src="https://pbs.twimg.com/media/DVJ7JaAVMAAESdw.jpg" width="20%" height="20%">
-		</p>
+		
+        <img src="http://make.bu.edu/img/makebu-head.png" width="20%" height="20%">
 
+		<p> To execute the code and see the runtime : add <b>/output</b> to the url </p>
+		<p> To test error cases: </p>
+		<p> Invalid Username: <b>/test1</b> <p>
+
+<br>
+<br>
+
+		<p> OUTPUT VIDEO: (in .mp4 format) <p>
 	<video controls>
   <source src="out.mp4" type="video/mp4">
-  <source src="out.ogg" type="video/ogg">
 Your browser does not support the video tag.
 </video>
 
@@ -39,6 +43,24 @@ Your browser does not support the video tag.
 </html>
 	"""
 
+@app.route("/output")
+def out():
+    ret = output.out()
+    return str(ret)
+
+@app.route("/test1")
+def test1():
+    ret = t1.test1()
+    return str(ret)
+
+@app.route("/test2")
+def test2():
+    ret = tester2.test2()
+    return str(ret)
+
+@app.route("/test3")
+def test3():
+    return str(ret)
 
 
 
