@@ -13,7 +13,7 @@ Some things to set up before you can have this running:
   >export GOOGLE_APPLICATION_CREDENTIALS=filename.json
      
      
-      **Make sure that you change filename.json depending on what you actually name it**
+**Make sure that you change filename.json depending on what you actually name it**
 
 
 ### Code Flow:
