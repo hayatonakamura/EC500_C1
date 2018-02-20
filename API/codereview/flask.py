@@ -1,9 +1,11 @@
 from flask import Flask
 #from testtwitter2 import get_all_tweets
 from twittertest import apicall
+from newtwittertest import apicall
 
 import t1
 import output
+import labels
 
 app = Flask(__name__)
 
@@ -20,7 +22,7 @@ def hello():
 
 </head>
 
-	<body>
+	<body bgcolor="#F89C88">
 	<h1> EC500 LOCAL WEBSITE: HAYATO NAKAMURA </h1>
 
 		
@@ -48,10 +50,18 @@ def out():
     ret = output.out()
     return str(ret)
 
+@app.route("/labels")
+def lab():
+	ret = labels.lab()
+	return str(ret)
+
 @app.route("/test1")
 def test1():
     ret = t1.test1()
     return str(ret)
+
+
+
 
 
 
