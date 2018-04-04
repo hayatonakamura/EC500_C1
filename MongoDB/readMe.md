@@ -21,7 +21,8 @@ The python script will also ask you if you would like to perform a search in the
 
 The following is an example output:
 
-  {'_id': ObjectId('5ac50313654e990b28fb5c06'),
+'''
+{'_id': ObjectId('5ac50313654e990b28fb5c06'),
  'picture1': 'art',
  'picture10': 'nose',
  'picture2': 'standing',
@@ -33,4 +34,4 @@ The following is an example output:
  'picture8': 'wood',
  'picture9': 'pink',
  'username': 'hayatopia'}
- 
+''' 
