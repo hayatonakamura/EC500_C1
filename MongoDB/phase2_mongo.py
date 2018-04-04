@@ -87,7 +87,7 @@ def Twitter(username):
 		client = vision.ImageAnnotatorClient()
 
 
-
+		twitterlabels = {}
 
 
 
@@ -115,10 +115,11 @@ def Twitter(username):
 		    response = client.label_detection(image=image)
 		    labels = response.label_annotations
 		    count = 0
+
 		    twitterlabels[count] = []
 
 		    #increments for mongodb category name
-		    newname = "picture" + x
+		    newname = "picture" + str(x)
 
 		    z = 0            #This is a counter to ONLY download the first description label
 		    marker = '*************************************************************'
@@ -142,7 +143,7 @@ def Twitter(username):
 		    newcommand = "rm " + name
 		    os.system(newcommand)
 
-		    return twitterlabels
+		return twitterlabels
 
 
 
@@ -163,8 +164,8 @@ def twitterbase(twitterinfo, username):
 	newdata = {"username": username, "picture1": "blank", "picture2": "blank", "picture3": "blank", "picture4": "blank", "picture5": "blank", "picture6": "blank", "picture7": "blank", "picture8": "blank", "picture9": "blank", "picture10": "blank"}
 	db.twitterdata.insert(newdata)
 	for label in twitterinfo:
-		newone = "picture" + label
-		db.twitterdata.update_one({"username": username, newone: twitterinfo[label]})
+		newone = "picture" + str(label)
+		db.twitterdata.update_one({"username": username}, { "$set": {newone: twitterinfo[label]}})
 
 
 if __name__ == '__main__':
