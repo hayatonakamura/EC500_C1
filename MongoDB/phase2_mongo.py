@@ -87,14 +87,14 @@ def Twitter(username):
 		client = vision.ImageAnnotatorClient()
 
 
-		twitterlabels = {}
-
 
 
 
 	 
 	#This counter is to name the 10 images 1.jpg, 2.jpg, ... , 10.jpg
 		newcounter = 0
+		count = 0
+		twitterlabels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
 
 		for x in range(1, 11):
 		    newcounter = newcounter + 1                  
@@ -114,9 +114,9 @@ def Twitter(username):
 		    # Performs label detection on the image file
 		    response = client.label_detection(image=image)
 		    labels = response.label_annotations
-		    count = 0
+		    
 
-		    twitterlabels[count] = []
+
 
 		    #increments for mongodb category name
 		    newname = "picture" + str(x)
@@ -132,11 +132,12 @@ def Twitter(username):
 		            print(' ')
 		            print(y)
 		            print(' ')
+		            twitterlabels[count] = y
 		            #newdata = {"username": username, "picture1": y, "picture2": "blank", "picture3": "blank", "picture4": "blank", "picture5": "blank", "picture6": "blank", "picture7": "blank", "picture8": "blank", "picture9": "blank", "picture10": "blank"}
 		            
 		            #newdata = {"username": username, newname: y}
-		            #db.twitterdata.update_one(newdata)
-		            twitterlabels[count].append(y)
+		            #db.twitter.update_one(newdata)
+		            #twitterlabels[count] = y
 		    count = count + 1
 
 
@@ -157,15 +158,34 @@ def twitterbase(twitterinfo, username):
 		print("connection successful")
 	except:
 		print("could not connect to MongoDB")
-	db = client.twitterdata
-	post = json.load(open('/Users/Hayato/Desktop/twitter_mongo_v1.json'))
-	db.twitterdata.insert(post)
+	db = client.twittermongo
+	post = json.load(open('/Users/Hayato/Desktop/twitter.json'))
+	db.twittermongo.insert(post)
 	#newdata = {"username": username}
 	newdata = {"username": username, "picture1": "blank", "picture2": "blank", "picture3": "blank", "picture4": "blank", "picture5": "blank", "picture6": "blank", "picture7": "blank", "picture8": "blank", "picture9": "blank", "picture10": "blank"}
-	db.twitterdata.insert(newdata)
-	for label in twitterinfo:
-		newone = "picture" + str(label)
-		db.twitterdata.update_one({"username": username}, { "$set": {newone: twitterinfo[label]}})
+	db.twittermongo.insert(newdata)
+	count = 1
+	for x in range(1,11):
+		newone = "picture" + str(count)
+		count = count + 1
+		db.twittermongo.update_one({"username": username}, { "$set": {newone: twitterinfo[count - 2]}})
+
+
+
+
+
+def findinfo():
+	client = pymongo.MongoClient()
+	db = client.twittermongo
+	u = input("Enter the  username:")
+	category = "username"
+	data = db.twittermongo.find_one({"username": u})
+	print("Information about the username: \n")
+	pprint.pprint(data)
+	print("\n")
+
+
+
 
 
 if __name__ == '__main__':
@@ -186,6 +206,9 @@ if __name__ == '__main__':
 	username=input('Twitter Username:')
 	twitterinfo = Twitter(username)
 	twitterbase(twitterinfo, username)
+	check = input("Would you like to find data in your database? (y/n): ")
+	if (check == "yes" or check == "y" or check == "Y"):
+		findinfo()
 
 
 
